@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/vue"
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -31,8 +33,6 @@
       </nav>
 
       <header class="hero">
-        
-        <!-- Layer foto: posisi diatur via heroBgStyle (terpisah dari gradient) -->
         <div class="hero-bg">
           <div class="hero-bg-image" :style="heroBgStyle">
             <img src="asset/IMG_0012.jpg" alt="">
@@ -81,16 +81,15 @@
               ><i class="fa-solid fa-ear-listen"></i> Spatial Audio</span
             >
             <span class="badge-rating">18+</span>
-            <span class="content-warning"
-              >vlog</span
-            >
+            <span class="content-warning">vlog</span>
           </div>
           <div class="top10-badge">
             <div class="top10-box">TOP<br />10</div>
             <span>#1 in series Today</span>
           </div>
           <p class="synopsis">
-            Two people. One beautiful life. From the quiet mornings at home to the roads we haven't explored yet — every moment with you feels like a scene worth remembering. This is our daily life, our little adventures, and the love that grows in between.          </p>
+            Two people. One beautiful life. From the quiet mornings at home to the roads we haven't explored yet — every moment with you feels like a scene worth remembering. This is our daily life, our little adventures, and the love that grows in between.
+          </p>
         </div>
         <div class="crew-info">
           <p>Cast: <span>Raditya Arva, Stephani Chris Anna</span></p>
@@ -125,14 +124,7 @@
               @mouseenter="movie.isHovered = true"
               @mouseleave="movie.isHovered = false"
             >
-              <div v-if="!movie.loaded" class="skeleton-card"></div>
-              
-              <img
-                :src="movie.image"
-                alt="Movie Poster"
-                @load="movie.loaded = true"
-                :class="{ loaded: movie.loaded }"
-              />
+              <img :src="movie.image" alt="Movie Poster" />
 
               <div v-if="movie.topBadge" class="top-number-badge">
                 #{{ movie.topBadge }}
@@ -226,7 +218,6 @@
               </div>
               
               <div class="controls-right">
-                
                 <div class="subtitle-container">
                     <button @click="toggleSubMenu" class="btn-subtitle">
                         <i class="fa-solid fa-closed-captioning" :class="{'active-icon': activeSub !== 'off'}"></i>

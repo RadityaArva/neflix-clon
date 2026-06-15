@@ -3,7 +3,6 @@ const { createApp, ref, onMounted, onUnmounted } = Vue;
 createApp({
     setup() {
         const isScrolled = ref(false);
-        // heroBgStyle: khusus mengatur posisi foto background (x% y%) — bisa diubah bebas
         const heroBgStyle = ref({ backgroundPosition: '80% 30%' });
         const heroContentStyle = ref({});
         const videoStyle = ref({}); 
@@ -29,12 +28,12 @@ createApp({
                 ],
             },
             {
-                title: "Critically Acclaimed TV Shows",
+                title: "Romance TV Shows",
                 movies: [
                     { image: "asset/IMG_2225.JPG", isHovered: false },
                     { image: "asset/IMG_2350.JPG", isHovered: false },
                     { image: "asset/IMG_2469.JPG", isHovered: false },
-                    { image: "asset/IMG_0012.JPG", isHovered: false },
+                    { image: "asset/IMG_0012.JPG", label: "Recently Added", isHovered: false },
                     { image: "asset/IMG_2471.JPG", isHovered: false },
                     { image: "asset/IMG_2507.JPG", label: "New Episodes", isHovered: false },
                 ],
@@ -42,12 +41,12 @@ createApp({
             {
                 title: "TV Sci-Fi & Horror",
                 movies: [
-                    { image: "asset/IMG_2508.JPG", isHovered: false },
+                    { image: "asset/IMG_2508.JPG", label: "Recently Added", isHovered: false },
                     { image: "asset/IMG_8935.JPG", isHovered: false },
                     { image: "asset/IMG_2513.JPG", isHovered: false },
-                    { image: "asset/IMG_2516.JPG", isHovered: false },
-                    { image: "asset/IMG_893.JPG", isHovered: false },
-                    { image: "asset/IMG_2192.JPG", isHovered: false },
+                    { image: "asset/IMG_2516.JPG", label: "New Episodes", isHovered: false },
+                    { image: "asset/IMG_8935.JPG", isHovered: false },
+                    { image: "asset/IMG_2192.JPG", label: "New Episodes", isHovered: false },
                 ],
             },
         ]);
@@ -56,12 +55,9 @@ createApp({
             const scrollY = window.scrollY;
             isScrolled.value = scrollY > 50;
 
-            // Parallax foto: geser posisi Y secara halus saat scroll
-            // X tetap di 70% agar wajah terlihat; Y bergerak dari 30% ke bawah sesuai scroll
-            const parallaxY = Math.min(scrollY * 0.05, 20); // max geser 20%
+            const parallaxY = Math.min(scrollY * 0.05, 20);
             heroBgStyle.value = { backgroundPosition: `70% calc(30% + ${parallaxY}%)` };
             
-            // Parallax video: transform translateY agar ikut bergerak seperti foto
             videoStyle.value = { 
                 transform: `translate3d(0, ${scrollY * 0.4}px, 0)`,
                 objectPosition: '70% center'
@@ -83,8 +79,6 @@ createApp({
         const formattedDuration = ref("00:00");
         
         const showSubMenu = ref(false);
-        
-        // REVISI: Ubah default subtitle ke English ('en') otomatis aktif
         const activeSub = ref('en'); 
         let controlsTimeout;
 
@@ -147,8 +141,6 @@ createApp({
                     }
                     isPlaying.value = true;
                     showPlayerControls();
-                    // Catatan: setSubtitle dipanggil di handleVideoLoaded,
-                    // agar textTracks sudah pasti ready saat diaktifkan
                 }
             }, 1500); 
         };
@@ -242,8 +234,6 @@ createApp({
         const handleVideoLoaded = () => {
             if (mainVideoPlayer.value) {
                 formattedDuration.value = formatTime(mainVideoPlayer.value.duration);
-                // Subtitle diaktifkan di sini karena textTracks sudah pasti ready
-                // setelah event loadeddata — ini cara yang aman dan benar
                 setSubtitle(activeSub.value);
             }
         };
@@ -270,7 +260,6 @@ createApp({
         };
 
         onMounted(() => {
-            // REVISI: Pastikan pemanggilan fungsi handleScroll agar background langsung menyesuaikan dari awal (mencegah bug posisi tidak berubah)
             handleScroll();
 
             window.addEventListener("scroll", handleScroll, { passive: true });
