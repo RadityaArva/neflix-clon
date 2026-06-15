@@ -1,0 +1,33 @@
+{
+  "name": "netflix-clone",
+  "version": "1.0.0",
+  "description": "Netflix Clone with Vercel Web Analytics",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RadityaArva/neflix-clon.git"
+  },
+  "keywords": [
+    "netflix",
+    "clone",
+    "analytics"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RadityaArva/neflix-clon/issues"
+  },
+  "homepage": "https://github.com/RadityaArva/neflix-clon#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  },
+  "devDependencies": {
+    "vite": "^8.0.16"
+  }
+}
